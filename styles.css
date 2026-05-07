@@ -1,0 +1,48 @@
+/* Fondo general */
+body{
+    background-color: #141414;
+}
+
+/* Tarjeta */
+.card{
+    background-color: #1f1f1f;
+    border: none;
+    color: white;
+
+    transition: transform 0.3s,
+                box-shadow 0.3s;
+
+    cursor: pointer;
+    overflow: hidden;
+}
+
+/* Hover tipo Netflix */
+.card:hover{
+    transform: scale(1.05);
+
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.8);
+
+    z-index: 10;
+}
+
+/* Imagen */
+.card img{
+    height: 220px;
+    object-fit: cover;
+}
+
+/* Boton */
+.btn-primary{
+    background-color: red;
+    border: none;
+}
+
+/* Hover del botón */
+.btn-primary:hover{
+    background-color: darkred;
+}
+
+/* Titulo */
+h1{
+    font-weight: bold;
+}
