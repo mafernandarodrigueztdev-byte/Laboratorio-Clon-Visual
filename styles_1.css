@@ -1,27 +1,36 @@
-/* Fondo general */
+/* Fondo de la pagina */
 body{
     background-color: #141414;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-/* Tarjeta */
+/* Card */
 .card{
     background-color: #1f1f1f;
     border: none;
     color: white;
 
+    /* Animacion */
     transition: transform 0.3s,
                 box-shadow 0.3s;
 
+    /* Cambia el cursor */
     cursor: pointer;
+
+    /* Evita que se salga la imagen */
     overflow: hidden;
 }
 
-/* Hover tipo Netflix */
+/* Efecto al pasar el mouse */
 .card:hover{
+
+    /* Hace grande la card */
     transform: scale(1.05);
 
+    /* Sombra */
     box-shadow: 0px 10px 25px rgba(0,0,0,0.8);
 
+    /* Pone la card encima */
     z-index: 10;
 }
 
@@ -37,7 +46,7 @@ body{
     border: none;
 }
 
-/* Hover del botón */
+/* Hover del boton */
 .btn-primary:hover{
     background-color: darkred;
 }
@@ -45,4 +54,5 @@ body{
 /* Titulo */
 h1{
     font-weight: bold;
+    color: white;
 }
