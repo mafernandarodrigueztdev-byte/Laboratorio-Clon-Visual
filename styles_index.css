@@ -136,3 +136,50 @@
     height: 300px;
     top: 20px;
 }
+
+
+                /** Footer */
+
+.footer-grid{
+    display:grid;
+    place-items: center;
+    grid-template-columns: repeat(4, 3fr);
+    gap:20px;
+}
+
+.footer-grid a{
+    color: rgb(223, 0, 0);
+}
+
+.footer-grid a:hover{
+    color: white;
+    text-decoration: underline;
+}
+
+.footer{
+    background-color: #141414;
+}
+
+.line{
+    background-color: #1f1f1f;
+    color: white;
+    padding: 1px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.footer p{
+    color: white;
+   
+}
+
+.language select{
+    background-color: black;
+    color: white;
+    border: 2px solid; color: white;
+    padding: 2px;
+
+}
+
+.language :hover{
+    color: rgb(223, 0, 0);
+}
