@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Netflix Clone - Grid System</title>
+    <!-- Bootstrap 5 CSS (única versión) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* ========== FUENTE Y COLORIMETRÍA GLOBAL ========== */
+        * {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #141414;
+        }
+
+        /* ========== HEADER (Navbar base) ========== */
+        .netflix-header {
+            background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0.8) 100%);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: #e5e5e5;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .right-buttons {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .btn-outline-light {
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            background-color: transparent;
+            border: 1px solid #ffffff;
+            color: white;
+        }
+
+        .btn-danger-custom {
+            background-color: #e50914;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.375rem 0.75rem;
+            color: white;
+        }
+
+        .btn-danger-custom:hover {
+            background-color: #f40612;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* ========== TÍTULOS DE FILAS ========== */
+        .row-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 1.5rem 0 0.75rem 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .row-title {
+                font-size: 1.8rem;
+                margin: 2rem 0 1rem 2.5rem;
+            }
+        }
+
+        /* ========== ESTILO 1: PELÍCULAS (imagen + título) ========== */
+        .movie-card {
+            background-color: #1f1f1f;
+            border: none;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            height: 100%;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.05);
+            z-index: 2;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+        }
+
+        .movie-card img {
+            width: 100%;
+            aspect-ratio: 2 / 3;
+            object-fit: cover;
+        }
+
+        .movie-card .card-body {
+            padding: 0.5rem;
+        }
+
+        .movie-card .card-title {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: white;
+            margin-bottom: 0;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ========== ESTILO 2: COMEDIAS ========== */
+        .comedy-card {
+            background-color: #1f1f1f;
+            border: 1px solid #333333;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .comedy-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            border-color: #e50914;
+        }
+
+        .comedy-card img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-bottom: 1px solid #333;
+        }
+
+        .comedy-card .card-body {
+            padding: 1rem;
+        }
+
+        .comedy-card .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .comedy-card .card-text {
+            font-size: 0.85rem;
+            color: #bbbbbb;
+            margin-bottom: 1rem;
+        }
+
+        .comedy-card .btn-outline-danger {
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            background-color: transparent;
+            border: 1px solid #e50914;
+            color: white;
+        }
+
+        .comedy-card .btn-outline-danger:hover {
+            background-color: #e50914;
+            color: white;
+        }
+
+        /* ========== ESTILO 3: TENDENCIAS ========== */
+        .trending-card {
+            background-color: #1f1f1f;
+            border: none;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            height: 100%;
+        }
+
+        .trending-card:hover {
+            transform: scale(1.05);
+            z-index: 2;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+        }
+
+        .trending-card img {
+            width: 100%;
+            aspect-ratio: 2 / 3;
+            object-fit: cover;
+        }
+
+        .trending-card .card-body {
+            padding: 0.75rem;
+            text-align: center;
+        }
+
+        .trending-card .card-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .trending-card .btn-play {
+            background-color: #e50914;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            color: white;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+
+        .trending-card .btn-play:hover {
+            background-color: #f40612;
+        }
+
+        .movie-row {
+            margin-bottom: 1.5rem;
+        }
+
+        /* ========== AJUSTES RESPONSIVOS ========== */
+        @media (max-width: 576px) {
+            .row-title {
+                margin-left: 1rem;
+            }
+
+            .comedy-card .card-title {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ========== HEADER ========== -->
+    <header class="netflix-header">
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+            <div class="d-flex align-items-center">
+                <div class="navbar-brand text-danger fw-bold">NETFLIX</div>
+                <div class="nav-links">
+                    <a href="#">Series</a>
+                    <a href="#">Películas</a>
+                    <a href="#">Juegos</a>
+                    <a href="#">Novedades Populares</a>
+                    <a href="#">Mi lista</a>
+                    <a href="#">Buscar</a>
+                    <a href="#">Niños</a>
+                </div>
+            </div>
+            <div class="right-buttons">
+                <span class="text-white me-2 d-none d-md-block" style="font-size: 0.85rem;">SERIES Y PELÍCULAS
+                    LIMITADAS</span>
+                <button class="btn-danger-custom">SUSCRIBIRSE AHORA</button>
+                <button class="btn-outline-light">INICIAR SESIÓN</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== SECCIÓN PRINCIPAL (Carrusel) ========== -->
+    <!-- Aquí tus compañeros pueden agregar su carrusel -->
+
+    <!-- ============================================ -->
+    <!-- GRID SYSTEM - FILAS DEL CATÁLOGO              -->
+    <!-- ============================================ -->
+
+    <div class="container-fluid px-2 px-sm-3 px-md-4">
+
+        <!-- ==================== ACCIÓN Y AVENTURAS ==================== -->
+        <h2 class="row-title">Acción y aventuras</h2>
+        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-2 g-sm-3 movie-row">
+            <div class="col">
+                <div class="movie-card"><img src="https://picsum.photos/id/20/300/450" alt="Time Trap">
+                    <div class="card-body">
+                        <p class="card-title">Time Trap</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="movie-card"><img src="https://picsum.photos/id/21/300/450" alt="Bumblebee">
+                    <div class="card-body">
+                        <p class="card-title">Bumblebee</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="movie-card"><img src="https://picsum.photos/id/22/300/450" alt="Vieja Guardia">
+                    <div class="card-body">
+                        <p class="card-title">Vieja Guardia</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="movie-card"><img src="https://picsum.photos/id/23/300/450" alt="Venom">
+                    <div class="card-body">
+                        <p class="card-title">Venom</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="movie-card"><img src="https://picsum.photos/id/24/300/450" alt="Mowgli">
+                    <div class="card-body">
+                        <p class="card-title">Mowgli</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="movie-card"><img src="https://picsum.photos/id/25/300/450" alt="La leyenda">
+                    <div class="card-body">
+                        <p class="card-title">La leyenda de la...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== DRAMAS ==================== -->
+        <h2 class="row-title">Dramas</h2>
+        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-2 g-sm-3 movie-row">
+            <div class="col">
+                <div class="movie-card"><img src="https://picsum.photos/id/26/300/450" alt="Interstellar">
+                    <div class="card-body">
+                        <p class="card-title">Interstellar</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="movie-card"><img src="https://picsum.photos/id/27/300/450" alt="Alpha">
+                    <div class="card-body">
+                        <p class="card-title">Alpha</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="movie-card"><img src="https://picsum.photos/id/28/300/450" alt="El renacido">
+                    <div class="card-body">
+                        <p class="card-title">El renacido</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="movie-card"><img src="https://picsum.photos/id/29/300/450" alt="Proscrito">
+                    <div class="card-body">
+                        <p class="card-title">Proscrito</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="movie-card"><img src="https://picsum.photos/id/30/300/450" alt="Rey">
+                    <div class="card-body">
+                        <p class="card-title">Rey</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="movie-card"><img src="https://picsum.photos/id/31/300/450" alt="Náufrago">
+                    <div class="card-body">
+                        <p class="card-title">Náufrago</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== COMEDIAS ==================== -->
+        <h2 class="row-title">Comedias</h2>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 g-3 movie-row">
+            <div class="col">
+                <div class="comedy-card"><img src="https://picsum.photos/id/100/400/225" alt="Superbad">
+                    <div class="card-body">
+                        <h5 class="card-title">Superbad</h5>
+                        <p class="card-text">Comedia juvenil.</p><a href="#" class="btn btn-outline-danger btn-sm">Ver
+                            más</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="comedy-card"><img src="https://picsum.photos/id/101/400/225" alt="Ted">
+                    <div class="card-body">
+                        <h5 class="card-title">Ted</h5>
+                        <p class="card-text">Oso fuera de control.</p><a href="#"
+                            class="btn btn-outline-danger btn-sm">Ver más</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="comedy-card"><img src="https://picsum.photos/id/102/400/225" alt="Son como niños">
+                    <div class="card-body">
+                        <h5 class="card-title">Son como niños</h5>
+                        <p class="card-text">Amigos y diversión.</p><a href="#"
+                            class="btn btn-outline-danger btn-sm">Ver más</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="comedy-card"><img src="https://picsum.photos/id/103/400/225" alt="¿Qué pasó ayer?">
+                    <div class="card-body">
+                        <h5 class="card-title">¿Qué pasó ayer?</h5>
+                        <p class="card-text">Locura en Las Vegas.</p><a href="#"
+                            class="btn btn-outline-danger btn-sm">Ver más</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="comedy-card"><img src="https://picsum.photos/id/104/400/225" alt="Scary Movie">
+                    <div class="card-body">
+                        <h5 class="card-title">Scary Movie</h5>
+                        <p class="card-text">Parodia de terror.</p><a href="#" class="btn btn-outline-danger btn-sm">Ver
+                            más</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="comedy-card"><img src="https://picsum.photos/id/105/400/225" alt="Shrek">
+                    <div class="card-body">
+                        <h5 class="card-title">Shrek</h5>
+                        <p class="card-text">Comedia animada.</p><a href="#" class="btn btn-outline-danger btn-sm">Ver
+                            más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== POPULARES ==================== -->
+        <h2 class="row-title">Populares</h2>
+        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-2 g-sm-3 movie-row">
+            <div class="col">
+                <div class="movie-card"><img src="https://picsum.photos/id/32/300/450" alt="The Witcher">
+                    <div class="card-body">
+                        <p class="card-title">The Witcher</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="movie-card"><img src="https://picsum.photos/id/33/300/450" alt="Squid Game">
+                    <div class="card-body">
+                        <p class="card-title">Squid Game</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="movie-card"><img src="https://picsum.photos/id/34/300/450" alt="Wednesday">
+                    <div class="card-body">
+                        <p class="card-title">Wednesday</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="movie-card"><img src="https://picsum.photos/id/35/300/450" alt="Stranger Things">
+                    <div class="card-body">
+                        <p class="card-title">Stranger Things</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="movie-card"><img src="https://picsum.photos/id/36/300/450" alt="Los Futbolismos">
+                    <div class="card-body">
+                        <p class="card-title">Los Futbolismos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="movie-card"><img src="https://picsum.photos/id/37/300/450" alt="Noé">
+                    <div class="card-body">
+                        <p class="card-title">Noé</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <!-- Aquí tus compañeros pueden agregar el footer -->
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
